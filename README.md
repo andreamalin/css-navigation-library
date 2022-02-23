@@ -107,7 +107,7 @@ goBack  | Go back key number | Number | 8
       if (window.actualHorizontal < this.container.length - 1) {
         window.actualHorizontal += 1;
         // Move the css and focus next card
-        this.move.right = `${cardRealSize * window.actualHorizontal}vw`;
+        this.move.right = `${cardWidth * window.actualHorizontal}vw`;
       }
     }
     // Left arrow
@@ -116,7 +116,7 @@ goBack  | Go back key number | Number | 8
       if (!this.isInfiniteCarousel && window.actualHorizontal > 0) {
         window.actualHorizontal -= 1;
         // Move the css and focus next card
-        this.move.right = `${cardRealSize * window.actualHorizontal}vw`;
+        this.move.right = `${cardWidth * window.actualHorizontal}vw`;
       }
     }
   }
