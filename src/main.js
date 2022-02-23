@@ -2,7 +2,7 @@ import { carouselGridMovement, carouselHorizontalMovement, carouselOK, focusNext
 
 // Global variables for index
 window.actualHorizontal = 0;
-window.actualVertical = 1;
+window.actualVertical = 0;
 
 // Global variables for type of carousel
 window.isInNormalCarousel = true;

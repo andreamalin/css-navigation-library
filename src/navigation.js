@@ -28,13 +28,13 @@ const carouselGridMovement = (movement = 'down | up | left | right') => {
       // Getting quanity of childs on previous or next row
       let rowToFocus;
       if (movement === 'down') {
-        rowToFocus = carouselGridRows[window.actualGridRow + 1]?.childElementCount - 1;
-        if (rowToFocus !== undefined) {
+        rowToFocus = carouselGridRows[window.actualGridRow + 1].childElementCount - 1;
+        if (!Number.isNaN(rowToFocus)) {
           window.actualGridRow += 1;
         }
       } else if (movement === 'up') {
-        rowToFocus = carouselGridRows[window.actualGridRow - 1]?.childElementCount - 1;
-        if (rowToFocus !== undefined) {
+        rowToFocus = carouselGridRows[window.actualGridRow - 1].childElementCount - 1;
+        if (!Number.isNaN(rowToFocus)) {
           window.actualGridRow -= 1;
         }
       }
@@ -65,7 +65,7 @@ const carouselGridMovement = (movement = 'down | up | left | right') => {
       }
       focusNextCarousel(movement);
       // Check if there are any open dialogs
-      closeDialogs();
+      closeCarousel();
     }
   } else if (movement === 'left' || movement === 'right') {
     try {
@@ -202,11 +202,8 @@ const carouselVerticalCenter = () => {
   y = Math.round(y);
 
   carousel[window.actualVertical].focus();
-  if (
-    document?.querySelectorAll('.carousel-container')[window.actualVertical].clientHeight <
-      document.getElementsByTagName('body')[0].clientHeight ||
-    window.actualVertical === 0
-  ) {
+
+  if (y < 100 || window.actualVertical === 0 || (window.isInGridCarousel && window.actualGridCell === 0)) {
     document.getElementsByTagName('body')[0].scrollTop = 0;
   } else {
     document.getElementsByTagName('body')[0].scrollTop = y;

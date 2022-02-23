@@ -1,0 +1,27 @@
+/*
+* Global navigation css
+*/
+
+html, body {
+    display: block !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.carousel-container {
+    position: relative;
+    white-space: nowrap;
+    display: flex;
+    .focusable-element {
+        display: inline-block;
+        position: relative;
+  
+        &:focus {
+            border-color: white;
+            outline: none;
+            box-shadow: 0px 0px 2vw 0px #000000;
+        }
+    }
+}
