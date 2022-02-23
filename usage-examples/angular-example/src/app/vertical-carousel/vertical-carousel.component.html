@@ -1,0 +1,12 @@
+<div class="vertical-center" *ngFor="let color of container; let i=index">
+    <div class="carousel-container" (focus)="setCarouselType()">
+      <div
+        tabindex="0"
+        class="focusable-element"
+      >
+        <div class="card" [style.backgroundColor]="color">
+          <h1>{{color}}</h1>
+        </div>
+      </div>
+    </div>
+</div>

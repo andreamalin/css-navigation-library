@@ -1,0 +1,13 @@
+<div class="carousel-container" tabindex="0" (focus)="getActualFocus()">
+    <div *ngFor="let color of container; let i=index">
+      <div
+        tabindex="0"
+        class="focusable-element"
+        (keydown)="keyDown($event, 15)"
+        [ngStyle]="move"
+      >
+        <div class="card" [style.backgroundColor]="color">
+          <h1>{{color}}</h1>
+        </div>
+      </div>
+</div>

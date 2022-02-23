@@ -1,0 +1,28 @@
+<ul class="header carousel-container">
+    <li *ngFor="let option of navigationOptions; let i=index"
+        class="focusable-element"
+        tabindex="0"
+        [ngClass]="selectedItem === i ? 'selected' : ''"
+        (click)="selectNavigation(i)"
+        (keydown)="keyDown($event)"
+        >{{option}}</li>
+</ul>
+
+<ng-template [ngIf]="selectedItem === 0">
+    <div *ngFor="let color of colors; let i=index">
+        <h1 class="title" [style.backgroundColor]="color[0]">Carousel #{{i + 1}} {{i % 2 == 0 ? 'Infinite' : 'Normal'}}</h1>
+        <app-carousel [isInfiniteCarousel]="i % 2 == 0" [container]="color"></app-carousel>
+    </div>
+</ng-template>
+
+<ng-template [ngIf]="selectedItem === 1">
+    <app-vertical-carousel [container]="colors[4]"></app-vertical-carousel>
+</ng-template>
+
+<ng-template [ngIf]="selectedItem === 2">
+    <app-grid-carousel [container]="colors[4]"></app-grid-carousel>
+</ng-template>
+
+<ng-template [ngIf]="selectedItem === 3">
+    <app-multiple-carousels [container]="colors[4]"></app-multiple-carousels>
+</ng-template>

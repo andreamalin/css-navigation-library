@@ -1,0 +1,10 @@
+<div class="multiple-carousels">
+    <div class="vertical-center">
+        <h1>This is a grid</h1>
+        <app-grid-carousel [container]="container" [quantityOfCards]="3"></app-grid-carousel>
+    </div>
+    <div class="vertical-center">
+        <h1>This is a vertical carousel</h1>
+        <app-vertical-carousel (keydown)="keyDown($event)" [container]="container"></app-vertical-carousel>
+    <div>
+</div>
