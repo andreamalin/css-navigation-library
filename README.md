@@ -152,5 +152,13 @@ goBack  | Go back key number | Number | 8
   }
 ```
 
+‼️ For a more detailed usage go to usage-examples/angular-example 
+```
+npm install
+npm start
+Project should be running on http://localhost:4200/ or selected port
+```
+***
+
 > © 2022, Andrea Amaya  
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
