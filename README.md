@@ -4,6 +4,8 @@
 1. [ Example ](#example)
 2. [ Usage ](#usage)
 3. [ Angular Implementation ](#angular)
+4. [ Already tested on ](#testedOn)
+5. [ Comming soon ](#commingSoon)
 ***
 <a name="example"></a>
 ## Examples
@@ -160,5 +162,23 @@ Project should be running on http://localhost:4200/ or selected port
 ```
 ***
 
+
+<a name="testedOn"></a>
+## ✅ Already tested on
+***
+- [X] Samsung (2017-2021) 
+- [X] LG (2017-2021)
+- [X] Vizio (series D and V)
+
+👉 Currently used on aha smarttvs platforms https://www.aha.video/ 
+***
+
+
+<a name="commingSoon"></a>
+## 🔜 Comming Soon 
+***
+- [ ] React implementation documentation and example
+
+***
 > © 2022, Andrea Amaya  
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
