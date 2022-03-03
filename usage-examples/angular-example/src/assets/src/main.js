@@ -34,7 +34,6 @@ const init = () => {
         if (window.isInGridCarousel) {
           carouselGridMovement('left');
         } else if (window.childrenBetweenLeft) {
-          window.actualVertical -= 1;
           focusNextCarousel('left');
           window.childrenBetweenLeft = false;
         } else if (window.isInNormalCarousel) {
@@ -45,7 +44,6 @@ const init = () => {
         if (window.isInGridCarousel) {
           carouselGridMovement('right');
         } else if (window.childrenBetweenRight) {
-          window.actualVertical += 1;
           focusNextCarousel('right');
           window.childrenBetweenRight = false;
         } else if (window.isInNormalCarousel) {
@@ -56,7 +54,6 @@ const init = () => {
         if (window.isInGridCarousel) {
           carouselGridMovement('up');
         } else if (window.childrenBetweenUp) {
-          window.actualVertical -= 1;
           focusNextCarousel('up');
           window.childrenBetweenUp = false;
         } else if (window.isInNormalCarousel) {
@@ -67,7 +64,6 @@ const init = () => {
         if (window.isInGridCarousel) {
           carouselGridMovement('down');
         } else if (window.childrenBetweenDown) {
-          window.actualVertical += 1;
           focusNextCarousel('down');
           window.childrenBetweenDown = false;
         } else if (window.isInNormalCarousel) {

@@ -22,7 +22,7 @@ export class MultipleCarouselsComponent implements OnInit {
   keyDown(e: any) {
     // Left arrow
     if (e.keyCode === 37) {
-      window.actualVertical = 3;
+      window.actualVertical = 2; // The actual position is 2
       window.childrenBetweenLeft = true;
     }
   }

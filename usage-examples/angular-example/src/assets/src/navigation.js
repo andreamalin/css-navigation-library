@@ -59,10 +59,6 @@ const carouselGridMovement = (movement = 'down | up | left | right') => {
       carouselVerticalCenterGrid();
     } catch (e) {
       // There is not a next row, check if there is another carousel
-      if (window.childrenBetweenUp) {
-        window.actualVertical -= 1;
-        window.childrenBetweenUp = false;
-      }
       focusNextCarousel(movement);
       // Check if there are any open dialogs
       closeCarousel();
@@ -87,10 +83,6 @@ const carouselGridMovement = (movement = 'down | up | left | right') => {
         // Try getting previous or next row
         // Getting quanity of childs on previous or next row
         if (movement === 'right') {
-          if (window.childrenBetweenRight) {
-            window.actualVertical += 1;
-            window.childrenBetweenRight = false;
-          }
           if (focusNextCarousel(movement)) {
             // Check if there are any open dialogs
             closeDialogs();
