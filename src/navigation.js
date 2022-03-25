@@ -1,6 +1,5 @@
 let maxVertical = 0;
 let minVertical = 0;
-
 /**
  * Focus the next focusable element based on the actualHorizontal and actualVertical indexes
  */
@@ -8,11 +7,9 @@ const carouselHorizontalMovement = () => {
   const carouselCard = document?.querySelectorAll('.carousel-container')[window.actualVertical]?.querySelectorAll('.focusable-element')[
     window.actualHorizontal
   ];
-
   checkBlockedCarousels();
   carouselCard.focus();
 };
-
 /**
  * Check the next focusable element on a grid carousel
  *
@@ -26,7 +23,6 @@ const carouselGridMovement = (movement = 'down | up | left | right') => {
     ?.querySelectorAll('.carousel-container')
     [window.actualVertical]?.querySelectorAll('.carousel-container-row');
   const actualRow = carouselGridRows[window.actualGridRow].childElementCount;
-
   if (movement === 'down' || movement === 'up') {
     try {
       // Getting quanity of childs on previous or next row
@@ -42,7 +38,6 @@ const carouselGridMovement = (movement = 'down | up | left | right') => {
           window.actualGridRow -= 1;
         }
       }
-
       if (actualRow - 1 === rowToFocus || window.actualGridCell === 0) {
         // Focusing on same position on next row
         carouselGridRows[window.actualGridRow].querySelectorAll('.focusable-element')[window.actualGridCell].focus();
@@ -50,7 +45,6 @@ const carouselGridMovement = (movement = 'down | up | left | right') => {
         try {
           // Calculating neareast aligned child
           const actualChildrenPos = Math.round((rowToFocus * window.actualGridCell + 1) / actualRow);
-
           carouselGridRows[window.actualGridRow].querySelectorAll('.focusable-element')[actualChildrenPos].focus();
           window.actualGridCell = actualChildrenPos;
         } catch (e2) {
@@ -83,7 +77,6 @@ const carouselGridMovement = (movement = 'down | up | left | right') => {
     } catch (e) {
       try {
         let rowToFocus;
-
         // Try getting previous or next row
         // Getting quanity of childs on previous or next row
         if (movement === 'right') {
@@ -113,7 +106,6 @@ const carouselGridMovement = (movement = 'down | up | left | right') => {
     }
   }
 };
-
 /**
  * If the user goes down or right, sum +1 to actualVertical index
  * If the user goes up or left, substract -1 to actualVertical index
@@ -125,7 +117,6 @@ const carouselGridMovement = (movement = 'down | up | left | right') => {
  */
 const focusNextCarousel = (movement = 'down | up | left | right') => {
   const listOfCarousels = document?.querySelectorAll('.carousel-container');
-
   if (movement === 'down' || movement === 'right') {
     try {
       if ((maxVertical !== 0 && window.actualVertical < maxVertical) || (maxVertical === 0 && minVertical === 0)) {
@@ -156,7 +147,6 @@ const focusNextCarousel = (movement = 'down | up | left | right') => {
     }
   }
 };
-
 /**
  * Check if the currently focused carousel is a grid or a normal carousel (vertical or horizontal)
  *
@@ -168,11 +158,9 @@ const checkTypeOfCarousel = (listOfCarousels) => {
     // Reset variables for grid carousel
     window.isInGridCarousel = true;
     window.isInNormalCarousel = false;
-
     window.actualHorizontal = 0;
     window.actualGridRow = 0;
     window.actualGridCell = 0;
-
     // Focus the element based on row and cell
     listOfCarousels[window.actualVertical]
       .querySelectorAll('.carousel-container-row')
@@ -183,7 +171,6 @@ const checkTypeOfCarousel = (listOfCarousels) => {
     // Reset variables for normal carousel
     window.isInNormalCarousel = true;
     window.isInGridCarousel = false;
-
     window.actualGridRow = 0;
     window.actualGridCell = 0;
     window.actualHorizontal = 0;
@@ -191,7 +178,6 @@ const checkTypeOfCarousel = (listOfCarousels) => {
     carouselHorizontalMovement();
   }
 };
-
 /**
  * Vertical center the next carousel
  * If the element height is less than the body or the current vertical position is 0, mantain the scroll on 0
@@ -199,20 +185,16 @@ const checkTypeOfCarousel = (listOfCarousels) => {
  */
 const carouselVerticalCenter = () => {
   const carousel = document?.querySelectorAll('.carousel-container');
-
   let y =
     carousel[window.actualVertical].offsetTop - window.innerHeight / 2 + carousel[window.actualVertical].getBoundingClientRect().height / 2;
   y = Math.round(y);
-
   carousel[window.actualVertical].focus();
-
   if (y < 100 || window.actualVertical === 0 || (window.isInGridCarousel && window.actualGridCell === 0)) {
     document.getElementsByTagName('body')[0].scrollTop = 0;
   } else {
     document.getElementsByTagName('body')[0].scrollTop = y;
   }
 };
-
 /**
  * Vertical center the next row on grid carousels
  * If the element height is less than the body, mantain the scroll on 0
@@ -220,11 +202,9 @@ const carouselVerticalCenter = () => {
  */
 const carouselVerticalCenterGrid = () => {
   const carousel = document?.querySelectorAll('.carousel-container')[window.actualVertical]?.querySelectorAll('.carousel-container-row');
-
   let y =
     carousel[window.actualGridRow].offsetTop - window.innerHeight / 2 + carousel[window.actualGridRow].getBoundingClientRect().height / 2;
   y = Math.round(y);
-
   if (
     document?.querySelectorAll('.carousel-container')[window.actualVertical].clientHeight <
     document.getElementsByTagName('body')[0].clientHeight
@@ -234,21 +214,17 @@ const carouselVerticalCenterGrid = () => {
     document.getElementsByTagName('body')[0].scrollTop = y;
   }
 };
-
 /**
  * Click the focused element and focus the next element based on the window.actualVertical and window.actualHorizontal
  */
 const carouselOK = () => {
   document.getElementsByTagName('body')[0].scrollTop = 0;
-
   // Stop double propagation on button elements
   if (document.activeElement.tagName !== 'BUTTON') {
     document.activeElement.click();
   }
-
   focusElement();
 };
-
 /**
  * If there is not any focus, focus the element based on the window.actualVertical and window.actualHorizontal
  */
@@ -264,7 +240,6 @@ const focusElement = () => {
     firstFocusableElementCounter += 1;
   }, 200);
 };
-
 /**
  * Close any closable carousel
  *
@@ -277,7 +252,6 @@ const closeCarousel = () => {
   }
   return false;
 };
-
 /*
  * If it is a blocked container
  * * Get all the quantity of blocked containers on the page
@@ -291,7 +265,11 @@ const closeCarousel = () => {
 const checkBlockedCarousels = () => {
   const carousel = document?.querySelectorAll('.carousel-container');
   if (carousel[window.actualVertical]?.classList.contains('blocked-container') && minVertical === 0 && maxVertical === 0) {
-    minVertical = window.actualVertical - 1;
+    if (window.actualVertical === 0) {
+      minVertical = 0;
+    } else {
+      minVertical = window.actualVertical - 1;
+    }
     maxVertical = minVertical + document.querySelectorAll('.blocked-container').length - 1;
   } else if (!carousel[window.actualVertical]?.classList.contains('blocked-container')) {
     minVertical = 0;
