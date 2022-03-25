@@ -1,3 +1,6 @@
+let maxVertical = 0;
+let minVertical = 0;
+
 /**
  * Focus the next focusable element based on the actualHorizontal and actualVertical indexes
  */
@@ -6,15 +9,16 @@ const carouselHorizontalMovement = () => {
     window.actualHorizontal
   ];
 
+  checkBlockedCarousels();
   carouselCard.focus();
 };
 
 /**
  * Check the next focusable element on a grid carousel
- * 
+ *
  * actualGridRow indicates the current row of the carousel
  * actualGridCell indicates the current cell of the row
- * 
+ *
  * @param movement = down, up, left or right
  */
 const carouselGridMovement = (movement = 'down | up | left | right') => {
@@ -113,9 +117,9 @@ const carouselGridMovement = (movement = 'down | up | left | right') => {
 /**
  * If the user goes down or right, sum +1 to actualVertical index
  * If the user goes up or left, substract -1 to actualVertical index
- * 
+ *
  * Check the type of the carousel to focus
- * 
+ *
  * @param movement = down, up, left or right
  * @returns true if there is a next carousel, false if there is not a next carousel based on the movement
  */
@@ -124,21 +128,29 @@ const focusNextCarousel = (movement = 'down | up | left | right') => {
 
   if (movement === 'down' || movement === 'right') {
     try {
-      listOfCarousels[window.actualVertical + 1].focus();
-      window.actualVertical += 1;
-      checkTypeOfCarousel(listOfCarousels);
-      carouselVerticalCenter();
-      return true;
+      if ((maxVertical !== 0 && window.actualVertical < maxVertical) || (maxVertical === 0 && minVertical === 0)) {
+        listOfCarousels[window.actualVertical + 1].focus();
+        window.actualVertical += 1;
+        checkTypeOfCarousel(listOfCarousels);
+        carouselVerticalCenter();
+        return true;
+      } else {
+        return false;
+      }
     } catch (e) {
       return false;
     }
   } else if (movement === 'up' || movement === 'left') {
     try {
-      listOfCarousels[window.actualVertical - 1].focus();
-      window.actualVertical -= 1;
-      checkTypeOfCarousel(listOfCarousels);
-      carouselVerticalCenter();
-      return true;
+      if ((maxVertical !== 0 && window.actualVertical > minVertical) || (maxVertical === 0 && minVertical === 0)) {
+        listOfCarousels[window.actualVertical - 1].focus();
+        window.actualVertical -= 1;
+        checkTypeOfCarousel(listOfCarousels);
+        carouselVerticalCenter();
+        return true;
+      } else {
+        return false;
+      }
     } catch (e) {
       return false;
     }
@@ -147,10 +159,11 @@ const focusNextCarousel = (movement = 'down | up | left | right') => {
 
 /**
  * Check if the currently focused carousel is a grid or a normal carousel (vertical or horizontal)
+ *
  * @param listOfCarousels = List of carousels with the .carousel-container class
  */
 const checkTypeOfCarousel = (listOfCarousels) => {
-  // It is a grid carousel if there are rows on the carousel 
+  // It is a grid carousel if there are rows on the carousel
   if (listOfCarousels[window.actualVertical].querySelectorAll('.carousel-container-row')?.length > 0) {
     // Reset variables for grid carousel
     window.isInGridCarousel = true;
@@ -188,9 +201,7 @@ const carouselVerticalCenter = () => {
   const carousel = document?.querySelectorAll('.carousel-container');
 
   let y =
-    carousel[window.actualVertical].offsetTop -
-    window.innerHeight / 2 +
-    carousel[window.actualVertical].getBoundingClientRect().height / 2;
+    carousel[window.actualVertical].offsetTop - window.innerHeight / 2 + carousel[window.actualVertical].getBoundingClientRect().height / 2;
   y = Math.round(y);
 
   carousel[window.actualVertical].focus();
@@ -208,9 +219,7 @@ const carouselVerticalCenter = () => {
  * Else; do the vertical center
  */
 const carouselVerticalCenterGrid = () => {
-  const carousel = document
-    ?.querySelectorAll('.carousel-container')
-    [window.actualVertical]?.querySelectorAll('.carousel-container-row');
+  const carousel = document?.querySelectorAll('.carousel-container')[window.actualVertical]?.querySelectorAll('.carousel-container-row');
 
   let y =
     carousel[window.actualGridRow].offsetTop - window.innerHeight / 2 + carousel[window.actualGridRow].getBoundingClientRect().height / 2;
@@ -258,6 +267,7 @@ const focusElement = () => {
 
 /**
  * Close any closable carousel
+ *
  * @returns true if there is any closable carousel, false if there is not
  */
 const closeCarousel = () => {
@@ -268,4 +278,24 @@ const closeCarousel = () => {
   return false;
 };
 
+/*
+ * If it is a blocked container
+ * * Get all the quantity of blocked containers on the page
+ * * The minVertical will be the actualVertical
+ * * The maxVertical will be all the quantity of blocked containers followed by actualVertical index
+ *
+ * Else if
+ * * The user is not longer focusing a blocked-container
+ * * * Reset the minVertical and maxVertical to 0
+ */
+const checkBlockedCarousels = () => {
+  const carousel = document?.querySelectorAll('.carousel-container');
+  if (carousel[window.actualVertical]?.classList.contains('blocked-container') && minVertical === 0 && maxVertical === 0) {
+    minVertical = window.actualVertical - 1;
+    maxVertical = minVertical + document.querySelectorAll('.blocked-container').length - 1;
+  } else if (!carousel[window.actualVertical]?.classList.contains('blocked-container')) {
+    minVertical = 0;
+    maxVertical = 0;
+  }
+};
 export { carouselHorizontalMovement, carouselOK, carouselGridMovement, focusNextCarousel, focusElement, closeCarousel };
